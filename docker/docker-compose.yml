@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # PostgreSQL - Base de données locale
+  postgres:
+    image: postgres:15-alpine  
+    container_name: postgres_bookshop
+    environment:
+      POSTGRES_USER: adminan
+      POSTGRES_PASSWORD: admin2026
+      POSTGRES_DB: bookshop_local
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../scripts/init_postgres.sql:/docker-entrypoint-initdb.d/01_init.sql
+    networks:
+      - bookshop_network
+    restart: unless-stopped
+
+  # pgAdmin - Interface web pour PostgreSQL
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_bookshop
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@bookshop.com
+      PGADMIN_DEFAULT_PASSWORD: admin2026
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - bookshop_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  bookshop_network:
+    driver: bridge

@@ -1,0 +1,23 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# DBT
+dbt_modules/
+logs/
+target/
+
+# Docker
+docker/volumes/
+
+# Environnement
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
