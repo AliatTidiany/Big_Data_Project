@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: raw
+    database: BOOKSHOP
+    schema: RAW
+    tables:
+      - name: VENTES
+      - name: FACTURES
+      - name: BOOKS
+      - name: CUSTOMERS
+      - name: CATEGORY

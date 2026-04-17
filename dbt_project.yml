@@ -1,0 +1,22 @@
+name: 'bookshop'
+version: '1.0'
+config-version: 2
+
+profile: 'bookshop'
+
+model-paths: ["models"]
+
+models:
+  bookshop:
+    
+    staging:
+      +schema: STAGGING
+      +materialized: table
+
+    warehouse:
+      +schema: WAREHOUSE
+      +materialized: table
+
+    marts:
+      +schema: MARTS
+      +materialized: table

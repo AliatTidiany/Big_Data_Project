@@ -1,0 +1,13 @@
+bookshop:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: IWLEDSD-OW30473   
+      user: ATTIDIANY
+      password: havpid2vibbibupsaH
+      role: ACCOUNTADMIN
+      database: BOOKSHOP
+      warehouse: COMPUTE_WH
+      schema: STAGGING
+      threads: 1
