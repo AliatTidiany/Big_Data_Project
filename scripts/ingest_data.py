@@ -1,4 +1,4 @@
-# ------------------------------- INGESTION POSTGRE-SNOWFLAKE -------------------------------------------
+### ------------------------------------------------ INGESTION POSTGRE-SNOWFLAKE -------------------------------------------
 
 """
 Script d'ingestion : PostgreSQL (Docker) → Snowflake
@@ -29,7 +29,7 @@ POSTGRES_CONFIG = {
 # Connexion Snowflake
 SNOWFLAKE_CONFIG = {
     'user': 'ATTIDIANY',
-    'password': "{{ env_var('SNOWFLAKE_PASSWORD') }}",
+    'password': 'havpid2vibbibupsaH',
     'account': 'iwledsd-ow30473',
     'warehouse': 'COMPUTE_WH',
     'database': 'BOOKSHOP',

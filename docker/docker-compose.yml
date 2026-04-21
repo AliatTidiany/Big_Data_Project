@@ -1,9 +1,11 @@
 version: '3.8'
 
 services:
-  # PostgreSQL - Base de données locale
+  # =========================
+  # PostgreSQL
+  # =========================
   postgres:
-    image: postgres:15-alpine  
+    image: postgres:15-alpine
     container_name: postgres_bookshop
     environment:
       POSTGRES_USER: adminan
@@ -13,12 +15,14 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ../scripts/init_postgres.sql:/docker-entrypoint-initdb.d/01_init.sql
+      - ../scripts:/docker-entrypoint-initdb.d
     networks:
       - bookshop_network
     restart: unless-stopped
 
-  # pgAdmin - Interface web pour PostgreSQL
+  # =========================
+  # pgAdmin
+  # =========================
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin_bookshop
@@ -29,6 +33,80 @@ services:
       - "5050:80"
     depends_on:
       - postgres
+    networks:
+      - bookshop_network
+    restart: unless-stopped
+
+  # =========================
+  # Airflow INIT
+  # =========================
+  airflow-init:
+    build:
+      context: .
+    container_name: airflow_init
+    depends_on:
+      - postgres
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://adminan:admin2026@postgres/airflow
+      # AJOUT DE LA CLÉ SECRÈTE
+      AIRFLOW__WEBSERVER__SECRET_KEY: 'cle_secrete_examen_dit'
+    volumes: &airflow_volumes
+      - ../dags:/opt/airflow/dags
+      - ../scripts:/opt/airflow/scripts
+      - ../models:/opt/airflow/models
+      - ../dbt_project.yml:/opt/airflow/dbt_project.yml
+      - ../.dbt:/opt/airflow/.dbt
+      - ../requirements.txt:/opt/airflow/requirements.txt
+    entrypoint: >
+      bash -c "
+        airflow db init &&
+        airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com
+      "
+    networks:
+      - bookshop_network
+
+  # =========================
+  # Airflow Webserver
+  # =========================
+  airflow-webserver:
+    build:
+      context: .
+    container_name: airflow_webserver
+    depends_on:
+      - postgres
+      - airflow-init
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://adminan:admin2026@postgres/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      # AJOUT DE LA CLÉ SECRÈTE
+      AIRFLOW__WEBSERVER__SECRET_KEY: 'cle_secrete_examen_dit'
+    ports:
+      - "8080:8080"
+    volumes: *airflow_volumes
+    command: webserver
+    networks:
+      - bookshop_network
+    restart: unless-stopped
+
+  # =========================
+  # Airflow Scheduler
+  # =========================
+  airflow-scheduler:
+    build:
+      context: .
+    container_name: airflow_scheduler
+    depends_on:
+      - postgres
+      - airflow-init
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://adminan:admin2026@postgres/airflow
+      # AJOUT DE LA CLÉ SECRÈTE
+      AIRFLOW__WEBSERVER__SECRET_KEY: 'cle_secrete_examen_dit'
+    volumes: *airflow_volumes
+    command: scheduler
     networks:
       - bookshop_network
     restart: unless-stopped
