@@ -5,7 +5,7 @@ bookshop:
       type: snowflake
       account: IWLEDSD-OW30473   
       user: ATTIDIANY
-      password: havpid2vibbibupsaH
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
       role: ACCOUNTADMIN
       database: BOOKSHOP
       warehouse: COMPUTE_WH

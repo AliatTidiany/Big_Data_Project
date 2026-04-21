@@ -21,3 +21,5 @@ docker/volumes/
 # OS
 .DS_Store
 Thumbs.db
+#Mp snowflake
+.env

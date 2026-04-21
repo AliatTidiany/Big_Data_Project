@@ -29,7 +29,7 @@ POSTGRES_CONFIG = {
 # Connexion Snowflake
 SNOWFLAKE_CONFIG = {
     'user': 'ATTIDIANY',
-    'password': 'havpid2vibbibupsaH',
+    'password': "{{ env_var('SNOWFLAKE_PASSWORD') }}",
     'account': 'iwledsd-ow30473',
     'warehouse': 'COMPUTE_WH',
     'database': 'BOOKSHOP',
