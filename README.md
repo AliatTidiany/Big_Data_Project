@@ -85,7 +85,7 @@ Big_Data_Project/
 
 ## Étapes réalisées
 
-### 1. PostgreSQL avec Docker (Niako)
+### 1. PostgreSQL avec Docker 
 
 **Objectif** : disposer d’une base locale pour les données brutes.
 
@@ -108,7 +108,7 @@ docker ps
 
 ---
 
-### 2. Snowflake – Création de la base et des schémas (Aliou / Niako)
+### 2. Snowflake – Création de la base et des schémas 
 
 - Compte Snowflake (free trial 30 jours)
 - Base `BOOKSHOP`
