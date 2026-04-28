@@ -16,7 +16,7 @@ BOOKSHOP (base Snowflake)
 │
 ├── RAW         ← Données brutes (ingérées depuis PostgreSQL)
 ├── STAGGING    ← Données nettoyées (dates converties)
-├── WAREHOUSE   ← Dimensions + faits (modèle en étoile)
+├── WAREHOUSE   ← Dimensions + fait (modèle en étoile)
 └── MARTS       ← Table unique obt_sales (prête pour la BI)
 ```
 
@@ -304,11 +304,30 @@ Interface Airflow : http://localhost:8080 (admin / admin)
 
 ---
 
-### 6. Visualisation (Streamlit) – à venir
+### 6. Visualisation (Streamlit) 
 
-Un dashboard Streamlit sera ajouté pour consulter `obt_sales` et générer des graphiques (ventes par mois, top livres, CA par client).
+- Une interface interactive développée avec Streamlit permettra d’exploiter les données consolidées de MARTS.obt_sales à travers des tableaux de bord dynamiques et des visualisations analytiques.
 
----
+Le dashboard offrira notamment :
+
+- 📈 L’analyse de l’évolution des ventes par mois
+- 📚 L’identification des livres les plus vendus
+- 💰 Le suivi du chiffre d’affaires par client
+- 🎛 Des filtres interactifs pour affiner les analyses
+
+- [Dashboard Interface ](images/viz_capture1.png)
+
+- [Dashboard Interface Suite](images/viz_capture2.png)
+
+## 🚀 Déploiement
+
+Le dashboard Streamlit est disponible en ligne via Streamlit Share :
+
+👉 [Bookshop Analytics Dashboard](https://dashboardappbigdata.streamlit.app)
+
+Afin de garantir un accès simple, centralisé et disponible partout, l’application a été déployée en ligne via Streamlit Share, rendant le dashboard accessible à distance pour les démonstrations, la consultation en temps réel et la valorisation du projet.
+
+Cette couche de visualisation apporte ainsi une dimension décisionnelle complète en transformant les données traitées dans Snowflake en indicateurs stratégiques exploitables.
 
 ## Fichiers clés
 
@@ -367,8 +386,8 @@ Un dashboard Streamlit sera ajouté pour consulter `obt_sales` et générer des 
 ## Auteurs
 
 - **Niako** 
-- **Aliou** 
+- **Ali_ibn_Tijani** 
 
 ---
 
-*Dernière mise à jour : 20/04/2026*
+*Dernière mise à jour : 28/04/2026*
