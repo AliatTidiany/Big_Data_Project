@@ -315,11 +315,11 @@ Le dashboard offrira notamment :
 - 💰 Le suivi du chiffre d’affaires par client
 - 🎛 Des filtres interactifs pour affiner les analyses
 
-- [Dashboard Interface ](images/viz_capture1.png)
+![Dashboard Interface](images/viz_capture1.png)
 
-- [Dashboard Interface Suite](images/viz_capture2.png)
+![Dashboard Interface Suite](images/viz_capture2.png)
 
-## 🚀 Déploiement
+##  Déploiement sur Streamlit Share
 
 Le dashboard Streamlit est disponible en ligne via Streamlit Share :
 
